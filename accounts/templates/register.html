@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Usuário{% endblock %}
+
+{% block main %}
+
+<article>
+    <form action="" action="{% url 'register_user' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="user_group">
+                <h5>Cadastro de usuário</h5>
+                <div class="user-form">
+                    <label for="name">Nome:</label>
+                    <input type="text" name="name" id="name" required placeholder="Nome do usuário">
+                    <label for="password">Senha:</label>
+                    <input type="password" name="password" id="password" required placeholder="Senha do usuário">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required placeholder="Email do usuário">
+                </div>
+            </div>
+            <input type="submit" value="Cadastrar">
+        </div>
+    </form>
+</article>
+
+{% endblock %}

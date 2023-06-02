@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title%}Bem vindo ao 25C{% endblock %}</title>
+  <!-- sweetalert2 -->
+  <link type="text/css" href="@@path/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+  <link type="text/css" href="@@path/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- JS -->
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+    
+  <!--NAVBAR-->
+  <nav>    
+    {% if user.is_authenticated %}
+    {% if profile.profile_pic %}
+      <a href="{% url 'profile_user' %}"><img src="{{ profile.profile_pic.url }}"></a>
+    {% else %}
+      <a href="{% url 'profile_user' %}"><img src="{% static 'img/no-photo.jpg' %}"></a>
+    {% endif %}
+  {% else %}
+    <a href="{% url 'profile_user' %}"><img src="{% static 'img/no-photo.jpg' %}"></a>
+  {% endif %}
+  
+    <ul>
+      <li><a href="/">Home</a></li>
+      {% if user.is_authenticated %}
+ 
+      <li class="dropdown">
+        <a  class="dropdown-toggle">Menu</a>
+        <div class="dropdown-menu">
+          <a href="{% url 'happy_day' %}">HappyDay</a>
+          <a href="{% url 'profile_user' %}">Perfil do Usuário </a>
+          <hr>
+          <a href="#">etc</a>
+        </div>
+      </li>
+      {% else %}
+      <li><a href="{% url 'register_user' %}">Cadastro</a></li>
+      {% endif %}
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout_user' %}">Sair</a></li>
+        {% else %}
+            <li><a href="{% url 'login_user' %}">Entrar</a></li>
+        {% endif %}
+    </ul>
+    <form action="{% url 'task-list' %}" class="nav-form-right" id="search-form" method="GET">
+      <input type="search" placeholder="Pesquisar" id="search" name="search" value="{{ request.GET.search }}">
+      <button type="submit">Pesquisar</button>
+    </form>
+    
+  </nav>
+  
+    
+
+  <header>
+    <div class="header-content">
+      <img id="banner" src="{% static 'img/banner.png' %}" alt="Logo">
+      <h1>SISTEMA DE GESTÃO AUTÔNOMA 25C</h1>
+
+
+    
+    </div>
+  </header>
+
+
+  <div class="container">
+    <aside>
+      <p class="listMenu"><a href="happyday/"></a>happyday</p>
+      <p class="listMenu">Radar Chart</p>
+      <p class="listMenu">Tarefas</p>
+      <p class="listMenu">Radar Chart</p>
+      <p class="listMenu">Radar Chart</p>
+      <p class="listMenu">Radar Chart</p>
+      <p class="listMenu">Radar Chart</p>
+      <p class="listMenu">Radar Chart</p>
+    </aside>
+
+    <main>
+      {% block main %}
+      
+      {% endblock %}
+    </main>
+  </div>
+
+
+  <footer>
+        <p>Copyright &copy; 2023.</p>
+        <p>Desenvolvido por Jonathas Oliveira</p>
+        <p>Linguagem de programação Python. <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">Saiba Mais</a> </p>
+        <p>Django <a href="https://www.djangoproject.com/community/" target="_blank" rel="noopener noreferrer">Saiba Mais</a></p>
+        <p>pch.vector / Freepik <a href="http://www.freepik.com" target="_blank" rel="noopener noreferrer">Saiba Mais</a></p>
+       
+
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <div>
+    {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'warning' %}
+        <script>
+          Swal.fire({
+            title: '',
+            text: "{{ message }}",
+            icon: "{{ message.tags }}",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          });
+        </script>
+      {% else %}
+        <script>
+          Swal.fire({
+            title: '',
+            text: "{{ message }}",
+            icon: "{{ message.tags }}",
+          });
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  </div>
+</body>
+</html>

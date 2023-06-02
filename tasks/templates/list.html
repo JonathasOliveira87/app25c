@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Tarefas{% endblock %}
+
+{% block main %}
+
+<style>
+    /* Estilo da lista de tarefas em aberto */
+    .taskOpen {
+        color: #4143af;
+        font-size: 24px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    /* Estilo da lista de tarefas concluídas */
+    .taskClosed {
+        color: rgb(0, 255, 13);
+        font-size: 24px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .failTesk {
+        color: red;
+        font-size: 24px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    .listTitle {
+    /* Estilo dos itens da lista */
+        display: inline-block;
+        width: 45%;
+        max-width: 45%;
+        margin: 5px 15px;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    }
+    .listTitle h3 {
+        text-decoration: none;
+    }
+    .listTitle a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    /* Estilo do texto da data */
+    .date {
+        color: #888;
+        font-size: 11px;
+    }
+
+    .dateEnd {
+        color: #b10404;
+        font-size: 14px;
+    }
+
+    .pagination {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .step-links {
+        margin-right: auto;
+        margin-left: 39%;
+        text-align: right;
+    }
+
+    .arrow {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: #17a758d8;
+        color: #fff;
+        border-radius: 30%;
+        text-align: center;
+        line-height: 20px;
+    }
+</style>
+
+<h1 class="taskOpen">Tarefas em aberto</h1>
+{% for task in open_tasks %}
+    <li class="listTitle">
+        <h3><a href="/{{task.id}}">{{task.title}}</a></h3>
+        <h5 class="dateEnd">Prazo termina em: {{task.EndTime}}</h5>
+        <h6 class="date">Tarefa criada em: {{task.created_task}}</h6>
+    </li>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if open_tasks.has_previous %}
+            <a href="?open_page={{ open_tasks.previous_page_number }}"><span class="arrow">&lArr;</span></a>
+        {% endif %}
+
+        <span>
+            Página {{ open_tasks.number }} de {{ open_tasks.paginator.num_pages }}
+        </span>
+
+        {% if open_tasks.has_next %}
+            <a href="?open_page={{ open_tasks.next_page_number }}"><span class="arrow">&rArr;</span></a>
+        {% endif %}
+    </span>
+</div>
+
+<h1 class="taskClosed">Tarefas concluídas</h1>
+{% for task in closed_tasks %}
+    <li class="listTitle">
+        <h3><a href="/{{task.id}}">{{task.title}}</a></h3>
+        <h6 class="date">Tarefa criada em: {{task.created_task}}</h6>
+    </li>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if closed_tasks.has_previous %}
+            <a href="?closed_page={{ closed_tasks.previous_page_number }}"><span class="arrow">&lArr;</span></a>
+        {% endif %}
+
+        <span>
+            Página {{ closed_tasks.number }} de {{ closed_tasks.paginator.num_pages }}
+        </span>
+
+        {% if closed_tasks.has_next %}
+            <a href="?closed_page={{ closed_tasks.next_page_number }}"><span class="arrow">&rArr;</span></a>
+        {% endif %}
+    </span>
+</div>
+
+<h1 class="failTesk">Tarefas não concluídas (tempo excedito)</h1>
+{% for task in fail_tasks %}
+    <li class="listTitle">
+        <h3><a href="/{{task.id}}">{{task.title}}</a></h3>
+        <h5 class="dateEnd">Prazo terminou em: {{task.EndTime}}</h5>
+        <h6 class="date">Tarefa criada em: {{task.created_task}}</h6>
+    </li>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if fail_tasks.has_previous %}
+            <a href="?fail_page={{ fail_tasks.previous_page_number }}"><span class="arrow">&lArr;</span></a>
+        {% endif %}
+
+        <span>
+            Página {{ fail_tasks.number }} de {{ fail_tasks.paginator.num_pages }}
+        </span>
+
+        {% if fail_tasks.has_next %}
+            <a href="?fail_page={{ fail_tasks.next_page_number }}"><span class="arrow">&rArr;</span></a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}

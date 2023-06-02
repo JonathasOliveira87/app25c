@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Login de Usuário{% endblock %}
+
+{% block main %}
+<article>
+    <form action="" action="{% url 'login_user' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="user_group">
+                <h5>Entrar com sua conta</h5>
+                <div class="user-form">
+                    <label for="username">Nome:</label>
+                    <input type="username" id="username" name="username" required placeholder="Digite seu primeiro nome">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                </div>
+            </div>
+            <input class="form-group" type="submit" value="Entrar">
+        </div>
+    </form>
+</article>
+{% endblock %}
