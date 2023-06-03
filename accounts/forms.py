@@ -1,6 +1,7 @@
 from django import forms
 from .models import UserProfile, HappyDay
 
+
 class UserProfileForm(forms.ModelForm):
     profile_pic = forms.ImageField(label='Profile picture')  # Usar o mesmo nome do campo no modelo
 
@@ -16,3 +17,4 @@ class HappyDayForm(forms.ModelForm):
     class Meta:
         model = HappyDay
         fields = ['password', 'date']
+

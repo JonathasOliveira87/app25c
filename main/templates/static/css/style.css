@@ -102,7 +102,7 @@ label {
 
 .user_group {
   display: flex;
-  width: 50%;
+  width: 90%;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
@@ -131,6 +131,7 @@ label {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 input[type="submit"] {
@@ -153,31 +154,477 @@ input:focus {
   background-color: #0a45bb0a;
 }
 
+  .listTitle {
+  /* Estilo dos itens da lista */
+      display: block;
+      width: 100%;
+      margin: 5px 0px;
+      background-color: #fff;
+      padding: 2px 25px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      box-sizing: border-box;
+  }
 
-footer {
-    text-align: center;
-    background-color: #37517E;
-    color: #fff;
-    padding: 50px;
-}
+  /* Estilo da lista de tarefas em aberto */
+  .taskOpen {
+    color: #4143af;
+    font-size: 24px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  /* Estilo da lista de tarefas concluídas */
+  .taskClosed {
+      color: rgb(0, 255, 13);
+      font-size: 24px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+  }
+
+  .failTesk {
+      color: red;
+      font-size: 24px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+  }
+
+  .listTitle h3 {
+      text-decoration: none;
+      overflow-wrap: break-word; /* Adiciona quebra de linha quando o texto excede a largura */
+  }
+  .listTitle a {
+      color: #007bff;
+      text-decoration: none;
+  }
+
+  /* Estilo do texto da data */
+  .date {
+      color: #888;
+      font-size: 11px;
+  }
+
+  .dateEnd {
+      color: #b10404;
+      font-size: 14px;
+  }
+
+  .pagination {
+      display: flex;
+      margin-top: 20px;
+  }
+
+  .step-links {
+      margin-right: auto;
+      margin-left: 40%;
+      text-align: right;
+  }
+
+  .arrow {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #17a758d8;
+      color: #fff;
+      border-radius: 30%;
+      text-align: center;
+      line-height: 20px;
+  }
+
+  table {
+    width: 90%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #ddd;
+  }
+
+  th {
+      background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+  input[type="file"] {
+      padding: 10px 0px;
+      background-color: rgba(0, 0, 0, 0.055);
+      color: #080808;
+      border: 1px solid black;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      box-sizing: border-box;
+  }
+
+  footer {
+      text-align: center;
+      background-color: #37517E;
+      color: #fff;
+      padding: 50px;
+  }
 
   
 /* Estilos específicos para dispositivos móveis */
 @media only screen and (max-width: 480px) {
-  .container {
+  /* Estilos para a barra de navegação */
+  nav {
+    color: #fff;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  nav img {
+    display: none;
+    max-height: 50px;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin-left: 10px;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .nav-form-right {
+    margin-top: auto;
+  }
+
+  .nav-form-right input[type="search"] {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+
+  /* Estilos para o menu suspenso */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-toggle::after {
+    content: '\25BC';
+    margin-left: 5px;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    text-shadow: none;
+    text-decoration: none;
+  }
+
+  .dropdown-menu a {
+    display: block;
+    color: #000;
+    text-shadow: none;
+    text-decoration: none;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+
+  /* Estilos para o conteúdo do cabeçalho */
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
-    aside {
-      display: none;
-    }
+  /* Estilos para a imagem do logo */
+  .header-content img {
+    width: 250px;
+    height: 100px;
+    margin-left: 2%;
   }
+  
+  /* Estilos para o texto */
+  .header-content h1 {
+    text-align: center;
+    margin-right: 10%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1em;
+    color: #fff;
+    text-shadow: 1px 1px 1px black;
+  }
+
+
+  /* Estilos para o conteúdo principal */
+  main {
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  /* Estilos para a barra lateral */
+  aside {
+    background: url(../img/menu.png) no-repeat center;
+  }
+
+  .container > aside {
+    display: block;
+
+  }
+
+  .listMenu {
+    display: none;
+  }
+
+
+  /* Estilos para o formulário de pesquisa na barra de navegação */
+  #search-form {
+    display: flex;
+    align-items: center;
+  }
+
+  #search-form input[type="search"] {
+    background-color: #ffffff;
+    width: 200px;
+    padding: 5px 0px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 4px;
+  }
+
+  #search-form button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-top: -2px;
+    cursor: pointer;
+  }
+
+
+  main {
+    padding: 20px;
+    background-color: #027cff0c;
+  }
+  
+  article {
+    max-width: 100%;
+    padding: 25px 0px;
+    margin: 0px;
+    border-top: 3px solid #0056b3;;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    background-color: white;
+  }
+
+  
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user_group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 0px;
+    border: 0px solid rgba(0, 0, 0, 0.199);
+  }
+  
+  .user-form {
+    display: inline;
+    width: 90%;
+    border-radius: 5px;
+    padding: 0px 0px;
+    border: 0px solid rgba(0, 0, 0, 0.199);
+  }
+
+  .profile-photo{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
+  }
+
+  /* Estilos para o rodapé */
+  footer {
+    font-size: .8em;
+    padding: 20px;
+    text-align: center;
+  }
+
+  footer p {
+    margin: 0;
+  }
+
+}
   
   /* Estilos específicos para tablets */
   @media only screen and (min-width: 481px) {
-    /* Ajusta a largura da barra lateral em tablets */
+    nav img {
+      margin-right: 10px;
+    }
+    
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 20px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav ul li {
+      display: inline;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 15px;
+      transition: all 0.5s ease;
+      text-shadow: 1px 1px 1px black;
+    }
+    
+    nav ul li a:hover {
+      color: rgb(0, 195, 255);
+      border-radius: 5px;
+      text-shadow: none;
+    }
+    
+    nav form {
+      display: flex;
+      align-items: center;
+    }
+    
+    nav form input[type="search"] {
+      background-color: #e0dbdb;
+      margin-right: 10px;
+      border-radius: 7px;
+      padding: 6px;
+    }
+    
+    nav form button {
+      background-color: #333333;
+      color: rgb(3, 167, 3);
+      border: 1.3px solid rgb(3, 167, 3);
+      border-radius: 5px;
+      padding: 6px 10px;
+      cursor: pointer;
+      margin-right: 30px;
+    }
+    
+    .nav-form-right {
+      margin-left: auto;
+    }
+    
+    .dropdown {
+      position: relative;
+    }
+    
+    .dropdown-toggle::after {
+      content: '\25BC';
+      margin-left: 5px;
+    }
+    
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 120%;
+      left: 0;
+      width: 150px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      text-shadow: none;
+      text-decoration: none;
+    }
+    
+    .dropdown-menu a {
+      display: block;
+      color: #000;
+      text-shadow: none;
+      text-decoration: none;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  
+    
+    /* Estilos para o conteúdo do cabeçalho */
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* Estilos para a imagem do logo */
+    .header-content img {
+      width: 450px;
+      height: 200px;
+      margin-left: 3%;
+    }
+    
+    /* Estilos para o texto */
+    .header-content h1 {
+      text-align: center;
+      margin-right: 5%;
+      font-family: Verdana, Geneva, Tahoma, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 1px 1px 1px black;
+    }
+  
+    .container {
+        display: flex;
+    }
+      
     aside {
-      width: 25%;
+        width: 25%;
+    }
+      
+    main {
+        width: 75%;
+    }
+
+    .profile-photo{
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
     }
   }
   
@@ -308,7 +755,7 @@ footer {
   }
     
   main {
-      width: 82%;
+      width: 85%;
   }
 
 

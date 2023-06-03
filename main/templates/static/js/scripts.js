@@ -49,3 +49,5 @@ document.getElementById('photo-input').addEventListener('change', function() {
     // Lê o arquivo da foto como uma URL de dados
     reader.readAsDataURL(this.files[0]);
 });
+
+

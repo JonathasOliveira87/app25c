@@ -9,12 +9,6 @@ from main.context_global import pic_global
 from .models import UserProfile, HappyDay
 
 
-# 1 Decorator para garantir que apenas usuários autenticados possam acessar a função
-# 2 Função para login de usuário
-# 3 Função para logout de usuário
-
-
-
 def login_user(request):
     if request.method == 'GET':
         return render(request, 'login.html', pic_global(request))
@@ -99,11 +93,17 @@ def registration(request):
         username = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        confirmPassword = request.POST.get('confirm-password')
+
 
         new_user = User.objects.filter(username=username)
 
         if new_user.exists():
-            messages.warning(request, 'Nome de usuário já existe!')
+            messages.info(request, 'Nome de usuário já existe!')
+            return render(request, 'register.html')
+        
+        if password != confirmPassword:
+            messages.info(request, 'As senhas não conferem!')
             return render(request, 'register.html')
 
         new_user = User.objects.create_user(username=username, email=email, password=password)

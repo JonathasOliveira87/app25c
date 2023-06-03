@@ -4,81 +4,7 @@
 
 {% block main %}
 
-<style>
-    /* Estilo da lista de tarefas em aberto */
-    .taskOpen {
-        color: #4143af;
-        font-size: 24px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-    /* Estilo da lista de tarefas concluídas */
-    .taskClosed {
-        color: rgb(0, 255, 13);
-        font-size: 24px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
 
-    .failTesk {
-        color: red;
-        font-size: 24px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-    .listTitle {
-    /* Estilo dos itens da lista */
-        display: inline-block;
-        width: 45%;
-        max-width: 45%;
-        margin: 5px 15px;
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-
-    }
-    .listTitle h3 {
-        text-decoration: none;
-    }
-    .listTitle a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    /* Estilo do texto da data */
-    .date {
-        color: #888;
-        font-size: 11px;
-    }
-
-    .dateEnd {
-        color: #b10404;
-        font-size: 14px;
-    }
-
-    .pagination {
-        display: flex;
-        margin-top: 20px;
-    }
-
-    .step-links {
-        margin-right: auto;
-        margin-left: 39%;
-        text-align: right;
-    }
-
-    .arrow {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background-color: #17a758d8;
-        color: #fff;
-        border-radius: 30%;
-        text-align: center;
-        line-height: 20px;
-    }
-</style>
 
 <h1 class="taskOpen">Tarefas em aberto</h1>
 {% for task in open_tasks %}
@@ -129,7 +55,7 @@
     </span>
 </div>
 
-<h1 class="failTesk">Tarefas não concluídas (tempo excedito)</h1>
+<h1 class="failTesk">Tarefas não concluídas (tempo excedido)</h1>
 {% for task in fail_tasks %}
     <li class="listTitle">
         <h3><a href="/{{task.id}}">{{task.title}}</a></h3>
