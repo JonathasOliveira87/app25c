@@ -7,77 +7,35 @@
     {% if has_agendamento %}
     <form action="{% url 'happy_day' %}" method="POST" id="delete-form">
         {% csrf_token %}
-        <div class="form-group">
-          <div class="user_group">
+        <h1>Já existe um agendamento para você</h1>
+        <div class="box-out">
+          <div class="user-form">
             <input type="hidden" name="form_type" value="del_happy">
-            <h4>Já existe um agendamento para este cliente</h4>
             <br>
             {% if agendamento %}
-            <h5>{{ agendamento }}</h5>
+            <p>{{ agendamento }}</p>
             {% endif %}
-            <br>
-            <input class="form-group" type="submit" value="Deletar agendamento HappyDay" onclick="confirmDelete(event)">
+            <br><br>
+            <input class="form-group" type="submit" value="Deletar agendamento HappyDay">
           </div>
         </div>
-        <script>
-            function confirmDelete(event) {
-              event.preventDefault();
-              Swal.fire({
-                title: 'Confirmação de exclusão',
-                text: 'Tem certeza que deseja deletar o agendamento?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sim, deletar',
-                cancelButtonText: 'Cancelar'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  document.getElementById('delete-form').submit();
-                }
-              });
-            }
-          </script>
+
       </form>
     {% else %}
         <form action="{% url 'happy_day' %}" method="POST" id="confirm-form">
             {% csrf_token %}
-            <div class="form-group">
-                <div class="user_group">
-                    <input type="hidden" name="form_type" value="new_happy">
-                    <h5>Agendar HappyDay</h5>
-                    <div class="user-form">
-                        <label for="password">Senha:</label>
-                        <input type="password" id="password" name="password" required placeholder="Digite sua senha para confirmar o agendamento">
-                        <label for="date">Data do agendamento:</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                </div>
-                <input class="form-group" type="submit" value="Agendar HappyDay" onclick="confirm(event)">
+            <h1>Agendar HappyDay</h1>
+            <div class="box-out">
+              <div class="user-form">
+                <input type="hidden" name="form_type" value="new_happy">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required placeholder="Digite sua senha para confirmar o agendamento">
+                <label for="date">Data do agendamento:</label>
+                <input type="date" id="date" name="date" required>
+                <input class="form-group" type="submit" value="Agendar HappyDay">
+              </div>
             </div>
         </form>
-        <script>
-            function confirm(event) {
-              event.preventDefault();
-              Swal.fire({
-                title: 'Evento agendado com sucesso!',
-                width: 600,
-                padding: '3em',
-                color: '#716add',
-                background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
-                backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("https://sweetalert2.github.io/images/nyan-cat.gif")
-                    left top
-                    no-repeat
-                `
-                }).then((result) => {
-                if (result.isConfirmed) {
-                  document.getElementById('confirm-form').submit();
-                }
-              });
-            }
-          </script>
     {% endif %}
 </article>
 {% endblock %}

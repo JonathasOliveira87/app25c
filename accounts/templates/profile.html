@@ -6,79 +6,82 @@
 {% block main %}
 
 <article>
-    <form id="photo-form" action="{% url 'profile_user' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="update_photo">
-        <div class="form-group">
-            <div class="user_group">
-                <h5>Trocar foto do perfil</h5>
-
-
-                {% if profile.profile_pic %}
-                    <a id="profile-photo-link" ><img class="profile-photo" src="{{ profile.profile_pic.url }}"></a>
-                {% else %}
-                    <a id="profile-photo-link"><img class="profile-photo" src="{% static 'img/no-photo.jpg' %}"></a>
-                {% endif %}
-                <h5><input  type="file" name="update_photo" id="update_photo"></h5>
-                <br>
-                <input type="submit" value="Atualizar Foto">
-                <br>
-                <br>
-                <table>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                    </tr>
-                    <tr>
-                        <td>{{ request.user.username }}</td>
-                        <td>{{ request.user.email }}</td>
-                    </tr>
-                </table>
-            </div>
+    <div class="box-out">
+        <div class="user-form">
+            <h1>Dados do perfil</h1>
+            
+                <form id="photo-form" action="{% url 'profile_user' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="update_photo">
+                        <div class="user_group">
+                            {% if profile.profile_pic %}
+                                <a id="profile-photo-link" ><img class="profile-photo" src="{{ profile.profile_pic.url }}"></a>
+                            {% else %}
+                                <a id="profile-photo-link"><img class="profile-photo" src="{% static 'img/no-photo.jpg' %}"></a>
+                            {% endif %}
+                            <input  type="file" name="update_photo" id="update_photo">
+                            <br>
+                            <input type="submit" value="Atualizar Foto">
+                            <br>
+                            <table>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ request.user.username }}</td>
+                                    <td>{{ request.user.email }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                </form>
+            
         </div>
-    </form>
+    </div>   
+</article>
 
-    <form action="{% url 'profile_user' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="update_email">
-        <div class="form-group">
+<article>
+    <div class="box-out">
+        <div class="user-form">
+            <h1>Trocar email</h1>
             <div class="user_group">
-                <h5>Trocar email</h5>
-                <div class="user-form">
+                <form action="{% url 'profile_user' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="update_email">
                     <label for="new_email">Novo email:</label>
                     <input type="email" id="new_email" name="new_email" required placeholder="Digite seu novo email">
                     <label for="confirm_email">Confirme email:</label>
                     <input type="email" id="confirm_email" name="confirm_email" required placeholder="Digite seu novo email novamente">
-                </div>
-                <br>
-                <input type="submit" value="Atualizar E-mail">
-                <br>
+                    <input type="submit" value="Atualizar E-mail">
+                    <br><br>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
+</article>
 
-    <form action="{% url 'profile_user' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="update_password">
-        <div class="form-group">
+
+<article>
+    <div class="box-out">
+        <div class="user-form">
+            <h1>Trocar senha</h1>
             <div class="user_group">
-                <h5>Trocar senha</h5>
-                <div class="user-form">
+                <form action="{% url 'profile_user' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="update_password">
                     <label for="current_password">Senha Atual:</label>
                     <input type="password" id="current_password" name="current_password" required placeholder="Digite sua senha atual">
-
                     <label for="new_password">Nova senha:</label>
                     <input type="password" id="new_password" name="new_password" required placeholder="Digite sua nova senha">
-
                     <label for="confirm_password">Confirme a senha:</label>
                     <input type="password" id="confirm_password" name="confirm_password" required placeholder="Digite sua senha novamente">
-                </div>
-                <br>
-                <input type="submit" value="Atualizar Senha">
-                <br>
+                    <br><br>
+                    <input type="submit" value="Atualizar Senha">
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </article>
+
 
 {% endblock %}

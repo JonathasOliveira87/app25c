@@ -16,7 +16,7 @@ class HappyDay(models.Model):
     data = models.DateField()
 
     def __str__(self):
-        return f'Agendamento para {self.cliente} em {self.data}'
+        return f'Olá {self.cliente}, seu Happy Day foi agendado para {self.data.strftime("%d/%m/%Y")}'
 
     def clean(self):
         existing_agendamento = HappyDay.objects.filter(cliente=self.cliente).exists()

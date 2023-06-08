@@ -4,19 +4,28 @@
 
 {% block main %}
 <article>
+    <h1 style="color: red;">Atenção!</h1>
+    <div class="box-out">
+        <p>"O Nosso Site é destinado exclusivamente para uso particular! Para acessar, por favor, registre-se e aguarde a aprovação do administrador para prosseguir."</p>
+    </div>
+</article>
+<article>
+    <h1>Entrar com sua conta</h1>
     <form action="" action="{% url 'login_user' %}" method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <div class="user_group">
-                <h5>Entrar com sua conta</h5>
-                <div class="user-form">
+        <div class="box-out">
+            <div class="user-form">
                     <label for="username">Nome:</label>
                     <input type="username" id="username" name="username" required placeholder="Digite seu primeiro nome">
                     <label for="password">Senha:</label>
                     <input type="password" id="password" name="password" required placeholder="Digite sua senha">
-                </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="" id="remember" class="remember-checkbox">
+                        <label for="remember" class="remember-label">Lembre de mim</label>
+                    </div>
+                    <input class="form-group" type="submit" value="Entrar">
             </div>
-            <input class="form-group" type="submit" value="Entrar">
+            <p>Não tem uma conta? <a href="{% url 'register_user' %}">Inscrever-se</a></p>
         </div>
     </form>
 </article>

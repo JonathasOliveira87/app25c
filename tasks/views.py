@@ -8,12 +8,21 @@ from .forms import TaskForm
 @login_required
 def taskList(request):
     search = request.GET.get('search')
+    filter = request.GET.get('filter')
+
     if search:
         tasks_search = Task.objects.filter(title__icontains=search)
         return render(request, 'search.html', {'tasks_search': tasks_search, 'search_query': search})
+    elif filter == 'all':
+        tasks_search = Task.objects.all()
+    elif filter:
+        tasks_search = Task.objects.filter(Escala=filter)
+        return render(request, 'list.html', {'tasks_search': tasks_search, 'search_query': filter})
+    
+    
     now = datetime.now()
 
-    open_tasks_list = Task.objects.filter(EndTime__gt=now, done='doing').order_by('-created_task')
+    open_tasks_list = Task.objects.filter(EndTime__gte=now, done='doing').order_by('-created_task')
     closed_tasks_list = Task.objects.filter(done='done').order_by('-created_task')
     fail_tasks_list = Task.objects.filter(EndTime__lt=now, done='fail').order_by('-created_task')
 

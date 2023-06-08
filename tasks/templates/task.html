@@ -4,20 +4,18 @@
 
 {% block main %}
 
-
-
 <article>
-    <h3 class="listTitle">{{ task.title }}</h3>
-    <p class="listDescrip">{{ task.description }} <br><br><br><br>
-    {{ task.created_task }}</p>
-
-    {% if task.done == 'doing' %}
-        <form method="post" action="{% url 'update-task' task.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Salvar">
-        </form>
-    {% endif %}
+    <div class="box-out">
+        <h3>{{ task.title }}</h3>
+        <p class="box-out">{{ task.description }}</p>
+        {% if task.done == 'doing' %}
+            <form method="post" action="{% url 'update-task' task.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Tarefa concluida!"> 
+            </form>
+        {% endif %}
+    </div>
 </article>
 
 {% endblock %}
