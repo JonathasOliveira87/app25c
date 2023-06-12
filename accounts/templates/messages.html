@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Mensagens Privadas{% endblock %}
+
+{% block main %}
+
+<article>
+    <div class="asideBox">
+        <h1>Enviar nova mensagem</h1>
+        <div class="box-out">
+            <li class="listtasks">
+                <form action="/accounts/messages/" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Enviar MP">
+                </form>
+            </li>
+        </div>
+    </div>
+</article>
+
+<article>
+    <div class="asideBox">
+        <h1>Mensagens Enviadas</h1>
+        <div class="box-out">
+            {% for message in sent_messages %}
+                <li class="listtasks">
+                    <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                    <h6 class="dateEnd">Enviada em: {{ message.send_date }}</h6>
+                </li>
+            {% endfor %}
+        </div>
+    </div>
+</article>
+
+<article>
+    <div class="asideBox">
+        <h1>Mensagens Recebidas</h1>
+        <div class="box-out">
+            {% for message in received_messages %}
+                <li class="listtasks">
+                    <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                    <h6 class="dateEnd">Recebida dia: {{ message.send_date }}</h6>
+                </li>
+            {% endfor %}
+        </div>
+    </div> 
+</article>
+
+{% endblock %}

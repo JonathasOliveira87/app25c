@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, AbstractUser
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from main.context_global import pic_global
-from .models import UserProfile, HappyDay
-
+from .models import UserProfile, HappyDay, Message
+from .forms import MessageForm
 
 
 User = get_user_model()
@@ -179,9 +179,35 @@ def happy_day(request):
 
 
 
+@login_required
+def messageView(request, id):
+    message = get_object_or_404(Message, pk=id)
+    return render(request, 'message.html', {'mp': message})
 
 
+@login_required
+def messages_list(request):
+    user = request.user
+    received_messages = Message.objects.filter(addressee=user)
+    sent_messages = Message.objects.filter(sender=user)
 
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            mensagem = form.save(commit=False)
+            mensagem.sender = request.user  # Define o remetente como o usuário logado
+            mensagem.save()
+            messages.success(request, 'Mensagem enviada com sucesso!')
+            return redirect('msg_private')  # Redireciona para uma página de sucesso após salvar a mensagem
+    else:
+        form = MessageForm()
 
+    context = {
+        'received_messages': received_messages,
+        'sent_messages': sent_messages,
+        'form': form
+    }
+    
+    return render(request, 'messages.html', context)
 
 

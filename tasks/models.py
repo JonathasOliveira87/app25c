@@ -6,7 +6,6 @@ class Task(models.Model):
     letra = (('all','Todas'),('a','A1'),('b','B2'),('c', 'C3'),('d', 'D4'),('e', 'E5'))
     title = models.CharField(max_length=100)
     description = models.TextField()
-    
     Escala = models.CharField(max_length=10, choices=letra, default='all')
     done = models.CharField(max_length=7, choices=STATUS, default='doing')
     EndTime = models.DateField(blank=True, null=True)

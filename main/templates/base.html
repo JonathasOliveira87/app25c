@@ -37,13 +37,14 @@
                     <input type="search" placeholder="    Pesquisar tarefas" id="search" name="search" value="{{ request.GET.search }}">
                   </form>
   
-                    <p><img src="{% static 'img/forms.png' %}" alt="banner">Ferramentas (GA)</p>
+                    <p>Ferramentas (GA)</p>
                     <a href="/">Tarefas</a>
                     <a href="{% url 'happy_day' %}">HappyDay</a>
                     <br>
                     <p>Autenticação</p>
                     {% if user.is_authenticated %}
                       <a href="{% url 'profile_user' %}">Perfil do Usuário</a>
+                      <a href="{% url 'msg_private' %}">Mensagens Privadas</a>
                       <a href="{% url 'logout_user' %}">Sair</a>
                     {% else %}
                       <a href="{% url 'login_user' %}">Login</a>

@@ -257,7 +257,7 @@ input:hover {
     box-sizing: border-box;
 }
   
-  
+
 input[type="submit"] {
 width: 100%;
 padding: 10px;
@@ -275,7 +275,6 @@ input[type="submit"]:hover {
 
 input:focus {
     outline: 2px solid #79AEC8;
-    background-color: white;
 }
 
 input[type="checkbox"] {
@@ -317,10 +316,10 @@ input[type="search"] {
 
 textarea {
     font-size: 1.1em;
-    background-color: #0a45bb0a;
+    background-color: #ffff;
     margin: auto;
     width: 100%;
-    height: auto;
+    height: 150px;
     border: 1px solid #79AEC8;;
     border-radius: 4px;
     margin-bottom: 20px;
@@ -414,7 +413,7 @@ footer {
     }
 
     .menu-icon {
-        background-color: red;
+        background-color: rgba(32, 30, 30, 0.795);
         transition: transform 0.3s ease;
     }
 
@@ -424,7 +423,7 @@ footer {
         display: block;
         width: 30px;
         height: 4px;
-        background-color: red;
+        background-color: rgba(32, 30, 30, 0.795);
         transition: transform 0.3s ease;
     }
 

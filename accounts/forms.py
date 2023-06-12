@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile, HappyDay
+from .models import UserProfile, HappyDay, Message
 
 
 class UserProfileForm(forms.ModelForm):
@@ -17,4 +17,10 @@ class HappyDayForm(forms.ModelForm):
     class Meta:
         model = HappyDay
         fields = ['password', 'date']
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['addressee', 'title', 'content']
 

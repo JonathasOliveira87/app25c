@@ -135,7 +135,7 @@
         {% for task in tasks_search %}
         {% if  task.done == 'fail' %}
         <li class="listtasks">
-            <h3><a href="/{{ task.id }}">{{ task.title }}</a></h3>
+            <p><a href="/{{ task.id }}">{{ task.title }}</a></p>
             <h6 class="date">Tarefa criada em: {{ task.created_task }}</h6>
         </li>
         {% endif %}

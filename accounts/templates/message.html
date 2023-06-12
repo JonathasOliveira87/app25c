@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Mensagens Privadas{% endblock %}
+
+{% block main %}
+<article>
+    <h1>Mensagem enviada para {{ mp.addressee }}</h1>
+    <div class="box-out">
+        <p>Título: {{ mp.title }}</p>
+        <h6 class="dateEnd">Enviada em: {{ mp.send_date }}</h6>
+        <textarea cols="30" rows="10" readonly>{{ mp.content }}</textarea>
+        <textarea name="resposta" cols="30" rows="10"></textarea>
+        <input type="submit" value="Responder">
+    </div>
+</article>
+{% endblock %}

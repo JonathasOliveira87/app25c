@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
@@ -8,8 +11,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
     
-
-from django.core.exceptions import ValidationError
 
 class HappyDay(models.Model):
     cliente = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
@@ -26,3 +27,16 @@ class HappyDay(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()  # Executa a validação antes de salvar o objeto
         super().save(*args, **kwargs)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='mensagens_enviadas', default=get_user_model())
+    addressee = models.ForeignKey(User, related_name='mensagens_recebidas', on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    send_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.sender} para {self.addressee.username}'
+
+
