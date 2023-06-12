@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import check_password
 from main.context_global import pic_global
 from .models import UserProfile, HappyDay, Message
 from .forms import MessageForm, ResponseMSGForm
+User = get_user_model()
 
 
 def check_new_messages(request):
@@ -15,9 +16,6 @@ def check_new_messages(request):
     if new_messages.exists():
         messages.info(request, 'Você tem novas mensagens!')
 
-
-    
-User = get_user_model()
 
 def login_user(request):
     if request.method == 'POST':

@@ -161,23 +161,30 @@ article  p {
     border-radius: 10px;
 }
 
-.user_group {
+.box-in {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
+    margin: auto;
     margin-bottom: 20px;
     padding: 50px;
     border: 1px solid rgba(0, 0, 0, 0.199);
 }
 
+.box-photo {
+    display: block;
+    text-align: center;
+}
+
+
 .profile-photo{
-width: 250px;
-height: 250px;
-object-fit: cover;
-border-radius: 50%;
-margin-bottom: 10px;
-box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
 }
 
 .new-messages-badge {
@@ -409,6 +416,23 @@ footer {
         flex-basis: 100%;
         transition: margin-left 0.3s ease;
         margin-left: 0;
+    }
+    .user-form {
+        display: block;
+        width: 100%;
+    }
+
+    .box-in {
+        display: contents;
+    }
+
+    .profile-photo{
+        width: 190px;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
     }
 
     .menu-toggle {

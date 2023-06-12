@@ -37,11 +37,10 @@
                     <input type="search" placeholder="    Pesquisar tarefas" id="search" name="search" value="{{ request.GET.search }}">
                   </form>
   
-                    <p>Ferramentas (GA)</p>
+                    <p>Ferramentas (GA)</p>         
                     <a href="/">Tarefas</a>
-                    <a href="{% url 'happy_day' %}">HappyDay</a>
-                    <br>
-                    <p>Autenticação</p>
+                    <a href="{% url 'happy_day' %}">HappyDay</a>     
+                    <p>Autenticação</p>                
                     {% if user.is_authenticated %}
                       <a href="{% url 'profile_user' %}">Perfil do Usuário</a>
                       <a href="{% url 'msg_private' %}">Mensagens Privadas</a>
@@ -50,15 +49,12 @@
                       <a href="{% url 'login_user' %}">Login</a>
                       <a href="{% url 'register_user' %}">Cadastro</a>
                     {% endif %}
-                    <br>
                     <p>Links externos</p>
                     <a href="#">DDS</a>
                     <a href="#">Obs de segurança</a>
-                    <br>
                     <p>Sobre</p>
                     <a href="#">Quem somos</a>
                     <a href="#">Contato</a>
-                    <br>
                 </ul>
             </aside>
             <!-- Fim do menu Lateral -->

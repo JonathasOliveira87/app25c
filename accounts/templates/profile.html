@@ -9,33 +9,33 @@
     <div class="box-out">
         <div class="user-form">
             <h1>Dados do perfil</h1>
-            
+            <div class="box-in">
                 <form id="photo-form" action="{% url 'profile_user' %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" name="form_type" value="update_photo">
-                        <div class="user_group">
-                            {% if profile.profile_pic %}
-                                <a id="profile-photo-link" ><img class="profile-photo" src="{{ profile.profile_pic.url }}"></a>
-                            {% else %}
-                                <a id="profile-photo-link"><img class="profile-photo" src="{% static 'img/no-photo.jpg' %}"></a>
-                            {% endif %}
-                            <input  type="file" name="update_photo" id="update_photo">
-                            <br>
-                            <input type="submit" value="Atualizar Foto">
-                            <br>
-                            <table>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                </tr>
-                                <tr>
-                                    <td>{{ request.user.username }}</td>
-                                    <td>{{ request.user.email }}</td>
-                                </tr>
-                            </table>
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="update_photo">
+                        <div class="box-photo">
+                        {% if profile.profile_pic %}
+                            <a id="profile-photo-link" class="text-center" ><img class="profile-photo" src="{{ profile.profile_pic.url }}"></a>
+                        {% else %}
+                            <a id="profile-photo-link"><img class="profile-photo" src="{% static 'img/no-photo.jpg' %}"></a>
+                        {% endif %}
                         </div>
+                        <input  type="file" name="update_photo" id="update_photo">
+                        <br>
+                        <input type="submit" value="Atualizar Foto">
+                        <br>
+                        <table>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                            </tr>
+                            <tr>
+                                <td>{{ request.user.username }}</td>
+                                <td>{{ request.user.email }}</td>
+                            </tr>
+                        </table>      
                 </form>
-            
+            </div>
         </div>
     </div>   
 </article>
@@ -44,7 +44,7 @@
     <div class="box-out">
         <div class="user-form">
             <h1>Trocar email</h1>
-            <div class="user_group">
+                <div class="box-in">
                 <form action="{% url 'profile_user' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="form_type" value="update_email">
@@ -60,12 +60,11 @@
     </div>
 </article>
 
-
 <article>
     <div class="box-out">
         <div class="user-form">
             <h1>Trocar senha</h1>
-            <div class="user_group">
+            <div class="box-in">
                 <form action="{% url 'profile_user' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="form_type" value="update_password">
