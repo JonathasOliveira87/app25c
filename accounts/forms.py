@@ -24,3 +24,15 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = ['addressee', 'title', 'content']
 
+
+class ResponseMSGForm(forms.ModelForm):
+    parent_message = forms.ModelChoiceField(queryset=Message.objects.all(), widget=forms.HiddenInput())
+
+    class Meta:
+        model = Message
+        fields = ['parent_message', 'content']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['parent_message'].widget = forms.HiddenInput()
+

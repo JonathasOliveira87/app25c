@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from main.context_global import pic_global
 from .models import UserProfile, HappyDay, Message
-from .forms import MessageForm
+from .forms import MessageForm, ResponseMSGForm
 
 
 User = get_user_model()
@@ -179,10 +179,29 @@ def happy_day(request):
 
 
 
+
 @login_required
 def messageView(request, id):
     message = get_object_or_404(Message, pk=id)
-    return render(request, 'message.html', {'mp': message})
+
+    if request.method == 'POST':
+        form = ResponseMSGForm(request.POST)
+
+        if form.is_valid():
+            response_msg = form.save(commit=False)
+            response_msg.sender = request.user
+            response_msg.addressee = message.sender
+            response_msg.parent_message = message.parent_message or message
+            response_msg.save()
+            messages.success(request, 'Resposta enviada com sucesso!')
+            return redirect('msg', id=id)
+    else:
+        form = ResponseMSGForm(initial={'parent_message': message})
+
+    return render(request, 'message.html', {'mp': message, 'form': form})
+
+
+
 
 
 @login_required
@@ -209,5 +228,6 @@ def messages_list(request):
     }
     
     return render(request, 'messages.html', context)
+
 
 

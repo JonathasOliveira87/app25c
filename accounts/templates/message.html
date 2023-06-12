@@ -3,14 +3,27 @@
 {% block title %}Mensagens Privadas{% endblock %}
 
 {% block main %}
+
 <article>
     <h1>Mensagem enviada para {{ mp.addressee }}</h1>
     <div class="box-out">
+        <li class="listtasks">
         <p>Título: {{ mp.title }}</p>
-        <h6 class="dateEnd">Enviada em: {{ mp.send_date }}</h6>
-        <textarea cols="30" rows="10" readonly>{{ mp.content }}</textarea>
-        <textarea name="resposta" cols="30" rows="10"></textarea>
-        <input type="submit" value="Responder">
+        <h6 class="date">Enviada em: {{ mp.send_date }}</h6>
+        <textarea cols="10" rows="10" readonly>{{ mp.content }}</textarea>
+
+        {% for reply in mp.replies.all %}
+            <h6 class="date">Resposta de {{ reply.sender }} em {{ reply.send_date }}</h6>
+            <textarea cols="10" rows="10" readonly>{{ reply.content }}</textarea>
+        {% endfor %}
+        
+        <form method="post" action="{% url 'msg' mp.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Responder">
+        </form>
+    </li>
     </div>
 </article>
+
 {% endblock %}

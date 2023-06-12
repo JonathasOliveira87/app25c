@@ -29,14 +29,31 @@ class HappyDay(models.Model):
         super().save(*args, **kwargs)
 
 
-class Message(models.Model):
+'''class Message(models.Model):
     sender = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='mensagens_enviadas', default=get_user_model())
     addressee = models.ForeignKey(User, related_name='mensagens_recebidas', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
+    response_msg = models.TextField(blank=True, null=True)
     send_date = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f'{self.sender} para {self.addressee.username}'''
+
+
+from django.db import models
+from django.contrib.auth import get_user_model
+
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='mensagens_enviadas', default=get_user_model())
+    addressee = models.ForeignKey(get_user_model(), related_name='mensagens_recebidas', on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    send_date = models.DateTimeField(auto_now_add=True)
+    parent_message = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return f'{self.sender} para {self.addressee.username}'
-
-

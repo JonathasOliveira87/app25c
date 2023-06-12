@@ -24,24 +24,30 @@
         <h1>Mensagens Enviadas</h1>
         <div class="box-out">
             {% for message in sent_messages %}
-                <li class="listtasks">
-                    <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
-                    <h6 class="dateEnd">Enviada em: {{ message.send_date }}</h6>
-                </li>
+                {% if not message.parent_message %}
+                    <li class="listtasks">
+                        <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                        <h6 class="dateEnd">Enviada em: {{ message.send_date }}</h6> 
+                    </li>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
 </article>
+
+
 
 <article>
     <div class="asideBox">
         <h1>Mensagens Recebidas</h1>
         <div class="box-out">
             {% for message in received_messages %}
-                <li class="listtasks">
-                    <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
-                    <h6 class="dateEnd">Recebida dia: {{ message.send_date }}</h6>
-                </li>
+                {% if not message.parent_message %}
+                    <li class="listtasks">
+                        <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                        <h6 class="dateEnd">Recebida dia: {{ message.send_date }}</h6>
+                    </li>
+                {% endif %}
             {% endfor %}
         </div>
     </div> 
