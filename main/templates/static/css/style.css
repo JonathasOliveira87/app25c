@@ -180,6 +180,16 @@ margin-bottom: 10px;
 box-shadow: 0 2px 5px rgba(0, 0, 0, 3);
 }
 
+.new-messages-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+  
+
 table {
 width: 100%;
 border-collapse: collapse;

@@ -9,6 +9,14 @@ from .models import UserProfile, HappyDay, Message
 from .forms import MessageForm, ResponseMSGForm
 
 
+def check_new_messages(request):
+    user = request.user
+    new_messages = Message.objects.filter(addressee=user, is_read=False)
+    if new_messages.exists():
+        messages.info(request, 'Você tem novas mensagens!')
+
+
+    
 User = get_user_model()
 
 def login_user(request):
@@ -26,6 +34,7 @@ def login_user(request):
                 if user.is_active:
                     login(request, user)
                     messages.success(request, 'Logado com sucesso!')
+                    check_new_messages(request)
                     return redirect('/')
                 else:
                     messages.error(request, 'Sua conta está inativa. Entre em contato com o administrador.')
@@ -37,7 +46,6 @@ def login_user(request):
     return render(request, 'login.html')
 
 
-
 @login_required 
 def logout_user(request):
     logout(request)
@@ -45,9 +53,9 @@ def logout_user(request):
     return redirect( '/')
 
 
-
 @login_required
 def profile_user(request):
+    check_new_messages(request)
     if request.method == 'GET':
         return render(request, 'profile.html', pic_global(request))
     else:
@@ -130,6 +138,7 @@ def registration(request):
 
 @login_required
 def happy_day(request):
+    check_new_messages(request)
     # Verificar se o usuário possui um agendamento existente
     has_agendamento = HappyDay.objects.filter(cliente=request.user).exists()
 
@@ -177,15 +186,13 @@ def happy_day(request):
     return render(request, 'happyday.html', {'has_agendamento': has_agendamento, 'agendamento': agendamento})
 
 
-
-
-
 @login_required
 def messageView(request, id):
     message = get_object_or_404(Message, pk=id)
 
     if request.method == 'POST':
         form = ResponseMSGForm(request.POST)
+        
 
         if form.is_valid():
             response_msg = form.save(commit=False)
@@ -201,14 +208,14 @@ def messageView(request, id):
     return render(request, 'message.html', {'mp': message, 'form': form})
 
 
-
-
-
 @login_required
 def messages_list(request):
+    check_new_messages(request)
     user = request.user
-    received_messages = Message.objects.filter(addressee=user)
-    sent_messages = Message.objects.filter(sender=user)
+    received_messages = Message.objects.filter(addressee=user).order_by('-send_date')
+    sent_messages = Message.objects.filter(sender=user).order_by('-send_date')
+
+    received_messages.update(is_read=True)
 
     if request.method == 'POST':
         form = MessageForm(request.POST)
@@ -228,6 +235,5 @@ def messages_list(request):
     }
     
     return render(request, 'messages.html', context)
-
 
 
