@@ -14,11 +14,11 @@
             <h6 class="date">Tarefa criada em: {{ task.created_task }}</h6>
             <h6 class="dateEnd">Prazo termina em: {{ task.EndTime }}</h6>
         </li>
-        {{ form.media }}
         <div class="text">
-            {{ task.description  | safe }}
+            <div class="ck ck-content">
+                {{ task.description  | safe }}
+            </div>
         </div>
-   
 
         {% if task.done == 'doing' %}
             <form method="post" action="{% url 'update-task' task.id %}" class="myform">
@@ -34,6 +34,6 @@
         {% endif %}
     </div>
 </article>
-<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
 
 {% endblock %}

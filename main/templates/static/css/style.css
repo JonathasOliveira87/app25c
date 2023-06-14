@@ -136,9 +136,6 @@ article {
     padding: 30px;
 }
 
-article  p {
-    text-align: center;
-}
 
 .sideBox {
     display: flex;
@@ -345,6 +342,7 @@ textarea {
 }
 
 .text {
+    text-align: auto;
     font-size: 1.1em;
     background-color: #ffff;
     padding: 20px 0;

@@ -10,25 +10,15 @@
     <div class="asideBox">
         <h1>Enviar nova mensagem</h1>
         <div class="box-out">
-
                 <form action="/accounts/messages/" method="post" class="myform">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    <div>
-                        {{ form.addressee.label_tag }}
-                        {{ form.addressee }}
+                    {% csrf_token %} 
+                    {{ form.media}}
+                    {% for field in form %}
+                    <div >
+                        <div><label for="{{ field.id_for_label }}">{{ field.label }}: </label></div>
+                        {{ field }}
                     </div>
-                    <div>
-                        {{ form.title.label_tag }}
-                        {{ form.title }}
-                    </div>
-
-                    <div>
-                        {{ form.content.label_tag }}
-                      </div>
-                      <div>
-                        {{ form.content }}
-                      </div>
+                    {% endfor %}
                     <input type="submit" value="Enviar MP">
                 </form>
 

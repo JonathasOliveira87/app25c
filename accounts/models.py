@@ -36,7 +36,7 @@ class Message(models.Model):
     sender = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='mensagens_enviadas', default=get_user_model())
     addressee = models.ForeignKey(get_user_model(), related_name='mensagens_recebidas', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    content = CKEditor5Field('Texto', config_name='default')
+    content = CKEditor5Field('Texto', config_name='extends')
     send_date = models.DateTimeField(auto_now_add=True)
     parent_message = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     is_read = models.BooleanField(default=False)
