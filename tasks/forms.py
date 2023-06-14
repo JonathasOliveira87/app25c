@@ -1,5 +1,6 @@
 from django import forms
 from .models import Task
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 class TaskForm(forms.ModelForm):
@@ -10,7 +11,11 @@ class TaskForm(forms.ModelForm):
         fields = ['done', 'feedback']
         widgets = {
             'done': forms.HiddenInput(),
-        }
+            'description': CKEditor5Widget(
+                  attrs={"class": "django_ckeditor_5"}, config_name="extends"
+              )
+          }
+        
 
     def save(self, commit=True):
         instance = super().save(commit=False)

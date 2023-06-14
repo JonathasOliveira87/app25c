@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Lista de Tarefas{% endblock %}
 
 {% block main %}
 
 <article>
+    <h1>Tarefas</h1>
     <div class="box-out">
-        <h3>Título: {{ task.title }}</h3>
-        <h6 class="date">Tarefa criada em: {{ task.created_task }}</h6>
-        <h6 class="dateEnd">Prazo termina em: {{ task.EndTime }}</h6>
-        <textarea cols="10" rows="10" readonly>{{ task.description }}</textarea>
-        {% if task.done == 'doing' %}
         <li class="listtasks">
-            <form method="post" action="{% url 'update-task' task.id %}">
+            <p>Título: {{ task.title }}</p>
+            <h6 class="date">Tarefa criada em: {{ task.created_task }}</h6>
+            <h6 class="dateEnd">Prazo termina em: {{ task.EndTime }}</h6>
+        </li>
+        {{ form.media }}
+        <div class="text">
+            {{ task.description  | safe }}
+        </div>
+   
+
+        {% if task.done == 'doing' %}
+            <form method="post" action="{% url 'update-task' task.id %}" class="myform">
+
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.media }}
+                {{ form }}
+
                 <input type="submit" value="Tarefa concluida!"> 
             </form>
-        </li>
+        </div>
+
         {% endif %}
     </div>
 </article>
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 
 {% endblock %}

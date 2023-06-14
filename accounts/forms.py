@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserProfile, HappyDay, Message
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 
 class UserProfileForm(forms.ModelForm):
@@ -20,19 +21,39 @@ class HappyDayForm(forms.ModelForm):
 
 
 class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['addressee', 'title', 'content']
-
-
-class ResponseMSGForm(forms.ModelForm):
-    parent_message = forms.ModelChoiceField(queryset=Message.objects.all(), widget=forms.HiddenInput())
-
-    class Meta:
-        model = Message
-        fields = ['parent_message', 'content']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['parent_message'].widget = forms.HiddenInput()
+        self.fields["content"].required = False
+
+    class Meta:
+        model = Message
+        fields = ['addressee', 'title', 'content']
+        widgets = {
+              "content": CKEditor5Widget(
+                  attrs={"class": "django_ckeditor_5"}, config_name="extends"
+              )
+          }
+        
+
+class ResponseMSGForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].required = False
+
+    class Meta:
+        model = Message
+        fields = ['content']
+        widgets = {
+              "content": CKEditor5Widget(
+                  attrs={"class": "django_ckeditor_5"}, config_name="extends"
+              )
+          }
+        
+
+
+
+
+
 

@@ -190,8 +190,6 @@ def messageView(request, id):
 
     if request.method == 'POST':
         form = ResponseMSGForm(request.POST)
-        
-
         if form.is_valid():
             response_msg = form.save(commit=False)
             response_msg.sender = request.user

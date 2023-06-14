@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django_ckeditor_5.fields import CKEditor5Field
+
+
 
 
 class UserProfile(models.Model):
@@ -25,19 +28,15 @@ class HappyDay(models.Model):
             raise ValidationError('Este cliente já possui um agendamento.')
 
     def save(self, *args, **kwargs):
-        self.full_clean()  # Executa a validação antes de salvar o objeto
+        self.full_clean() 
         super().save(*args, **kwargs)
-
-
-
-
 
 
 class Message(models.Model):
     sender = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, related_name='mensagens_enviadas', default=get_user_model())
     addressee = models.ForeignKey(get_user_model(), related_name='mensagens_recebidas', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = CKEditor5Field('Texto', config_name='default')
     send_date = models.DateTimeField(auto_now_add=True)
     parent_message = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     is_read = models.BooleanField(default=False)

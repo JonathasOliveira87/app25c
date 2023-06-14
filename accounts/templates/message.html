@@ -6,23 +6,35 @@
 
 <article>
     <h1>Mensagem enviada para {{ mp.addressee }}</h1>
+
     <div class="box-out">
         <li class="listtasks">
-        <p>Título: {{ mp.title }}</p>
-        <h6 class="date">Enviada em: {{ mp.send_date }}</h6>
-        <textarea cols="10" rows="10" readonly>{{ mp.content }}</textarea>
+            <p>Título: {{ mp.title }}</p>
+            <h6 class="date">Enviada em: {{ mp.send_date }}</h6>
+        </li>
+        <div class="text">
+            {{ mp.content | safe }}
+        </div>
+ 
 
         {% for reply in mp.replies.all %}
-            <h6 class="date">Resposta de {{ reply.sender }} em {{ reply.send_date }}</h6>
-            <textarea cols="10" rows="10" readonly>{{ reply.content }}</textarea>
+            <li class="listtasks">
+                <h6 class="date">Resposta de {{ reply.sender }} em {{ reply.send_date }}</h6>
+            </li>
+            <div class="text">
+                {{ reply.content | safe }}
+            </div>
         {% endfor %}
+
         
-        <form method="post" action="{% url 'msg' mp.id %}">
+        <form method="post" action="{% url 'msg' mp.id %}" class="myform">
+            
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.media }}
+            {{ form }}
+           
             <input type="submit" value="Responder">
         </form>
-    </li>
     </div>
 </article>
 

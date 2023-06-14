@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('happyday/', views.happy_day, name='happy_day'),
     path('messages/<int:id>/', views.messageView, name='msg'),
     path('messages/', views.messages_list, name='msg_private'),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
 ]

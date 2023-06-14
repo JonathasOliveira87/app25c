@@ -6,18 +6,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title%}Bem vindo ao 25C{% endblock %}</title>
+    <title>{% block title %}Bem vindo ao 25C{% endblock %}</title>
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- JS -->
-    <script src="{% static '/js/script.js' %}"></script>
 </head>
 
 <body>
     <div class="container">
-      <button class="menu-toggle">
-        <span class="menu-icon"></span>
-      </button>
+        <button class="menu-toggle">
+            <span class="menu-icon"></span>
+        </button>
 
         <!-- Cabeçalho -->
         <header>
@@ -33,21 +31,25 @@
             <!-- Menu Lateral -->
             <aside>
                 <ul>
-                  <form action="{% url 'task-list' %}" class="nav-form-right" id="search-form" method="GET">
-                    <input type="search" placeholder="    Pesquisar tarefas" id="search" name="search" value="{{ request.GET.search }}">
-                  </form>
-  
-                    <p>Ferramentas (GA)</p>         
+                    <form action="{% url 'task-list' %}" class="nav-form-right" id="search-form" method="GET">
+                        <input type="search" placeholder="    Pesquisar tarefas" id="search" name="search"
+                            value="{{ request.GET.search }}">
+                    </form>
+
+                    <p>Ferramentas (GA)</p>
                     <a href="/">Tarefas</a>
-                    <a href="{% url 'happy_day' %}">HappyDay</a>     
-                    <p>Autenticação</p>                
+                    <a href="{% url 'happy_day' %}">HappyDay</a>
+                    <p>Autenticação</p>
+                    {% if user.is_superuser %}
+                    <a href="/admin/" target="_blank">Painel ADM</a>
+                    {% endif %}
                     {% if user.is_authenticated %}
-                      <a href="{% url 'profile_user' %}">Perfil do Usuário</a>
-                      <a href="{% url 'msg_private' %}">Mensagens Privadas</a>
-                      <a href="{% url 'logout_user' %}">Sair</a>
+                    <a href="{% url 'profile_user' %}">Perfil do Usuário</a>
+                    <a href="{% url 'msg_private' %}">Mensagens Privadas</a>
+                    <a href="{% url 'logout_user' %}">Sair</a>
                     {% else %}
-                      <a href="{% url 'login_user' %}">Login</a>
-                      <a href="{% url 'register_user' %}">Cadastro</a>
+                    <a href="{% url 'login_user' %}">Login</a>
+                    <a href="{% url 'register_user' %}">Cadastro</a>
                     {% endif %}
                     <p>Links externos</p>
                     <a href="#">DDS</a>
@@ -61,17 +63,16 @@
 
             <!-- Conteudo principal -->
             <main>
-   
                 {% if messages %}
                 <ul class="messages">
-                  {% for message in messages %}
+                    {% for message in messages %}
                     <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
-                  {% endfor %}
+                    {% endfor %}
                 </ul>
                 {% endif %}
 
                 {% block main %}
-
+                    {{ form.media }}
                 {% endblock %}
             </main>
             <!-- Fim do conteudo principal -->
@@ -82,20 +83,16 @@
         <footer>
             <p>Copyright &copy; 2023.</p>
             <p>Desenvolvido por Jonathas Oliveira</p>
-            <p>Linguagem de programação Python. <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">Saiba Mais</a> </p>
-            <p>Django <a href="https://www.djangoproject.com/community/" target="_blank" rel="noopener noreferrer">Saiba Mais</a></p>
-            </footer>
+            <p>Linguagem de programação Python. <a href="https://docs.python.org/3/" target="_blank"
+                    rel="noopener noreferrer">Saiba Mais</a> </p>
+            <p>Django <a href="https://www.djangoproject.com/community/" target="_blank"
+                    rel="noopener noreferrer">Saiba Mais</a></p>
+        </footer>
         <!-- Fim do rodapé -->
 
-    </div> 
-
-    <script>
-      const menuToggle = document.querySelector('.menu-toggle');
-      const container = document.querySelector('.container');
-
-      menuToggle.addEventListener('click', function() {
-          container.classList.toggle('menu-opened');
-      });
-  </script>
+    </div>
+    <!-- JS -->
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>

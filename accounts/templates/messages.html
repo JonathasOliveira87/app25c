@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Mensagens Privadas{% endblock %}
 
 {% block main %}
@@ -8,47 +10,69 @@
     <div class="asideBox">
         <h1>Enviar nova mensagem</h1>
         <div class="box-out">
-            <li class="listtasks">
-                <form action="/accounts/messages/" method="post">
+
+                <form action="/accounts/messages/" method="post" class="myform">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    {{ form.media }}
+                    <div>
+                        {{ form.addressee.label_tag }}
+                        {{ form.addressee }}
+                    </div>
+                    <div>
+                        {{ form.title.label_tag }}
+                        {{ form.title }}
+                    </div>
+
+                    <div>
+                        {{ form.content.label_tag }}
+                      </div>
+                      <div>
+                        {{ form.content }}
+                      </div>
                     <input type="submit" value="Enviar MP">
                 </form>
-            </li>
+
         </div>
     </div>
 </article>
+
 
 <article>
     <div class="asideBox">
         <h1>Mensagens Enviadas</h1>
         <div class="box-out">
-            {% for message in sent_messages %}
-                {% if not message.parent_message %}
-                    <li class="listtasks">
-                        <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
-                        <h6 class="dateEnd">Enviada em: {{ message.send_date }}</h6> 
-                    </li>
-                {% endif %}
-            {% endfor %}
+            {% if sent_messages %}
+                {% for message in sent_messages %}
+                    {% if not message.parent_message %}
+                        <li class="listtasks">
+                            <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                            <h6 class="dateEnd">Enviada em: {{ message.send_date }}</h6> 
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="listtasks">Nenhuma mensagem enviada.</li>
+            {% endif %}
         </div>
     </div>
 </article>
-
-
 
 <article>
     <div class="asideBox">
         <h1>Mensagens Recebidas</h1>
         <div class="box-out">
-            {% for message in received_messages %}
-                {% if not message.parent_message %}
-                    <li class="listtasks">
-                        <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
-                        <h6 class="dateEnd">Recebida dia: {{ message.send_date }}</h6>
-                    </li>
-                {% endif %}
-            {% endfor %}
+            {% if received_messages %}
+                {% for message in received_messages %}
+                    {% if not message.parent_message %}
+                        <li class="listtasks">
+                            <p><a href="/accounts/messages/{{ message.id }}">{{ message.title }}</a></p>
+                            <h6 class="dateEnd">Recebida dia: {{ message.send_date }}</h6>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="listtasks">Nenhuma mensagem recebida.</li>
+            {% endif %}
         </div>
     </div> 
 </article>
